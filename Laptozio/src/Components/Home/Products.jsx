@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Unauthorized from '../../Components/Unauthorized';
 import Loading from '../Loading';
+import { Link } from 'react-router-dom';
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -40,16 +41,18 @@ const Products = () => {
             992: { items: 4 },
             1200: { items: 5 }
           }} nav>
-            {products.map((items) => (
-              <div key={items._id} className="boxes w-48 md:w-64 md:h-72 mr-20 p-2">
-                <img src={`http://localhost:5000/api/product/get-photo/${items._id}`} alt="Product" className="!w-full p-5 !h-44 rounded-lg" />
-                <h3 className="text text-md font-medium mt-4">{items.product_name}</h3>
-                <div className="price flex items-center gap-4">
-                  <span className="text-xl font-bold">₹ {items.actual_price}</span>
-                  <span className="text-md text-red-700"><strike>₹ {items.discounted_price}</strike></span>
-                </div>
-              </div>
-            ))}
+           {products.map(item => (
+  <div key={item._id} className="boxes w-48 md:w-64 md:h-72 mr-20 p-2">
+    <Link to={`single-product/${item._id}`}>
+      <img src={`http://localhost:5000/api/product/get-photo/${item._id}`} alt="Product" className="!w-full p-5 !h-44 rounded-lg" />
+      <h3 className="text text-md font-medium mt-4">{item.product_name}</h3>
+      <div className="price flex items-center gap-4">
+        <span className="text-xl font-bold">₹ {item.actual_price}</span>
+        <span className="text-md text-red-700"><strike>₹ {item.discounted_price}</strike></span>
+      </div>
+    </Link>
+  </div>
+))}
           </OwlCarousel>
         ) : (
           // Display Unauthorized component if there are no products

@@ -205,3 +205,22 @@ export const filterProductController = async (req, res) => {
         console.log(error);
     }
 };
+
+// get single product controller
+export const getSingleProduct = async (req, res)=>{
+    try {
+        const {productId} = req.params;
+        const product = await ProductModel.findById(productId);
+        if(!product){
+            return res.status(404).json({
+                message: "Product not found"
+            })
+        }
+        res.json(product);
+    } catch (error) {
+        return res.status(500).send({
+            message: "Something went wrong",
+            success: false
+        })
+    }
+}

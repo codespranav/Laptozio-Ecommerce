@@ -12,6 +12,7 @@ import Product from './Pages/Admin/Product'
 import Category from './Pages/Admin/Category'
 import ProductList from './Components/Products/ProductList'
 import ConnectionLost from './Components/ConnectionLost'
+import SingleProduct from './Pages/User/SingleProduct'
 function App() {
   const [onlineStatus, setOnlineStatus] = useState(navigator.onLine);
   // const isUserOnline = ()=> {
@@ -53,6 +54,7 @@ function App() {
         <Route path='/products/:category' element = {<ProductList/>}/>
         <Route path='/login' element = {<Login/>}/>
         <Route path='/signup' element = {<Signup/>}/>
+        <Route path='single-product/:productId' element= {<SingleProduct/>}/>
     </Routes> : <ConnectionLost/>
   )
 }
